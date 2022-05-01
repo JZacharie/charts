@@ -106,6 +106,10 @@ spec:
         {{- end }}
         - name: INACTIVITY_TIMEOUT_SECONDS
           value: {{ .Values.director.environmentVariables.inactivityTimeoutSeconds | quote }}
+        {{- if .Values.director.environmentVariables.MINIO_READ_URL_PREFIX }}
+        - name: MINIO_READ_URL_PREFIX
+          value: {{ .Values.director.environmentVariables.MINIO_READ_URL_PREFIX | quote }}
+        {{- end }}
         image: "{{ .Values.director.image.repository }}:{{ .Values.director.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.director.image.pullPolicy }}
         name: {{ include "sorry-cypress-helm.fullname" . }}-director
